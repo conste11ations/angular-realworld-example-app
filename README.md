@@ -1,80 +1,99 @@
-[![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
-[![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=master)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
+# Testing Angular Applications with Cypress Workshop
 
-# ![Angular Example App](logo.png)
+### Welcome to ngConf Enterprise!
 
-> ### Angular codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
+## WORKSHOP SETUP
 
+Please complete the following steps to prepare for the workshop. It may take a few minutes to install all the dependencies on your system.
 
-<a href="https://stackblitz.com/edit/angular-realworld" target="_blank"><img width="187" src="https://github.com/gothinkster/realworld/blob/master/media/edit_on_blitz.png?raw=true" /></a>&nbsp;&nbsp;<a href="https://thinkster.io/tutorials/building-real-world-angular-2-apps" target="_blank"><img width="384" src="https://raw.githubusercontent.com/gothinkster/realworld/master/media/learn-btn-hr.png" /></a>
+### System Requirements
 
-### [Demo](https://angular.realworld.io)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+Please check the [Cypress system requirements](https://docs.cypress.io/guides/getting-started/installing-cypress.html#System-requirements) here to ensure you have all the dependencies needed.
 
+Additionally, you'll need the following:
 
+- An IDE or Code Editor (VS Code recommended)
+- NPM or Yarn (Yarn recommended)
+- Angular CLI (recommended, not required)
 
-This codebase was created to demonstrate a fully fledged application built with Angular that interacts with an actual backend server including CRUD operations, authentication, routing, pagination, and more. We've gone to great lengths to adhere to the [Angular Styleguide](https://angular.io/styleguide) & best practices.
+### Installation
 
-Additionally, there is an Angular 1.5 version of this codebase that you can [fork](https://github.com/gothinkster/angularjs-realworld-example-app) and/or [learn how to recreate](https://thinkster.io/angularjs-es6-tutorial).
+1. Clone the repository locally. Make sure you are on the `starter` branch.
+2. Run `yarn install` or `npm install` in the project directory.
+3. If you have the Angular CLI installed, run `ng serve`. Otherwise, run `yarn run start` to start the dev server. Confirm the application runs locally.
+4. In a new terminal, run `yarn run cypress open` or `npx cypress open`
+5. Confirm the Cypress Test Runner opens on your machine. You should see a Graphical User Interface (GUI) like the screenshot below:
 
+![Cypress Test Runner](TestRunnerGUI.png)
 
-# How it works
+6. If the application runs and the Test Runner appears, you are ready for the workshop! You can stop both servers.
 
-We're currently working on some docs for the codebase (explaining where functionality is located, how it works, etc) but the codebase should be straightforward to follow as is. We've also released a [step-by-step tutorial w/ screencasts](https://thinkster.io/tutorials/building-real-world-angular-2-apps) that teaches you how to recreate the codebase from scratch.
+## APPLICATION
 
-### Making requests to the backend API
+The Application Under Test is a fork of [gothinkster/angular-realworld-example-app](https://github.com/gothinkster/angular-realworld-example-app).
 
-For convenience, we have a live API server running at https://conduit.productionready.io/api for the application to make requests against. You can view [the API spec here](https://github.com/GoThinkster/productionready/blob/master/api) which contains all routes & responses for the server.
+### About
 
-The source code for the backend server (available for Node, Rails and Django) can be found in the [main RealWorld repo](https://github.com/gothinkster/realworld).
+Below is the application description from its README. Check out the repository directly for more details about the application.
 
-If you want to change the API URL to a local server, simply edit `src/environments/environment.ts` and change `api_url` to the local server's URL (i.e. `localhost:3000/api`)
+> Angular codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
+### Demo
 
-# Getting started
+[Demo](https://angular.realworld.io)
 
-Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally. We use [Yarn](https://yarnpkg.com) to manage the dependencies, so we strongly recommend you to use it. you can install it from [Here](https://yarnpkg.com/en/docs/install), then run `yarn install` to resolve all dependencies (might take a minute).
+> This codebase was created to demonstrate a fully fledged application built with Angular that interacts with an actual backend server including CRUD operations, authentication, routing, pagination, and more. We've gone to great lengths to adhere to the [Angular Styleguide](https://angular.io/styleguide) & best practices.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### API
 
-### Building the project
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+> For convenience, we have a live API server running at https://conduit.productionready.io/api for the application to make requests against. You can view [the API spec here](https://github.com/GoThinkster/productionready/blob/master/api) which contains all routes & responses for the server.
 
-
-## Functionality overview
+### Functionality overview
 
 The example application is a social blogging site (i.e. a Medium.com clone) called "Conduit". It uses a custom API for all requests, including authentication. You can view a live demo over at https://angular.realworld.io
 
-**General functionality:**
+#### General functionality:
 
 - Authenticate users via JWT (login/signup pages + logout button on settings page)
-- CRU* users (sign up & settings page - no deleting required)
+- CRU\* users (sign up & settings page - no deleting required)
 - CRUD Articles
-- CR*D Comments on articles (no updating required)
+- CR\*D Comments on articles (no updating required)
 - GET and display paginated lists of articles
 - Favorite articles
 - Follow other users
 
-**The general page breakdown looks like this:**
+#### The general page breakdown looks like this:
 
 - Home page (URL: /#/ )
-    - List of tags
-    - List of articles pulled from either Feed, Global, or by Tag
-    - Pagination for list of articles
+  - List of tags
+  - List of articles pulled from either Feed, Global, or by Tag
+  - Pagination for list of articles
 - Sign in/Sign up pages (URL: /#/login, /#/register )
-    - Uses JWT (store the token in localStorage)
-    - Authentication can be easily switched to session/cookie based
+  - Uses JWT (store the token in localStorage)
+  - Authentication can be easily switched to session/cookie based
 - Settings page (URL: /#/settings )
 - Editor page to create/edit articles (URL: /#/editor, /#/editor/article-slug-here )
 - Article page (URL: /#/article/article-slug-here )
-    - Delete article button (only shown to article's author)
-    - Render markdown from server client side
-    - Comments section at bottom of page
-    - Delete comment button (only shown to comment's author)
+  - Delete article button (only shown to article's author)
+  - Render markdown from server client side
+  - Comments section at bottom of page
+  - Delete comment button (only shown to comment's author)
 - Profile page (URL: /#/profile/:username, /#/profile/:username/favorites )
-    - Show basic user info
-    - List of articles populated from author's created articles or author's favorited articles
+  - Show basic user info
+  - List of articles populated from author's created articles or author's favorited articles
 
+## WORKSHOP OUTLINE
 
-<br />
+[Workshop Slides](https://cypress.slides.com/cecelia/testing-angular-applications-with-cypress)
 
-[![Brought to you by Thinkster](https://raw.githubusercontent.com/gothinkster/realworld/master/media/end.png)](https://thinkster.io)
+This workshop contains seven interactive activities.
+
+You can see potential solutions for these activities by navigating to the various branches:
+
+- [Activity One Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-one)
+- [Activity Two Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-two)
+- [Activity Three Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-three)
+- [Activity Four Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-four)
+- [Activity Five Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-five)
+- [Activity Six Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-six)
+- [Activity Seven Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-seven)
