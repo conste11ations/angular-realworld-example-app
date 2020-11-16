@@ -97,3 +97,8 @@ You can see potential solutions for these activities by navigating to the variou
 - [Activity Five Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-five)
 - [Activity Six Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-six)
 - [Activity Seven Solution](https://github.com/CypressCecelia/cypress-testing-angular-workshop/tree/activity-seven)
+
+## OTHER HANDY LINKS
+
+ - https://www.youtube.com/watch?v=cZlm9J0C5GA
+ - https://github.com/ceceliacreates/ionic-cypress
