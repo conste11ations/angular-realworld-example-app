@@ -11,9 +11,25 @@ describe("workshop test", () => {
         cy.contains("A place to share your Angular knowledge.");
     });
 
+    it("network requests", () => {
+        // -- Visits the baseUrl
+        cy.visit("/");
+           // Setup our routes
+        cy.server(); // enables response stubbing
+        cy.route("POST", "https://conduit.productionready.io/api/users/login").as(
+      "login");
+        cy.route("POST", "https://conduit.productionready.io/api/articles/").as(
+      "publish");
+    });
+
     it("uses commands to sign in and publish new article", () => {
         // Visits our application
+        cy.server();
         cy.visit("/"); 
+        cy.route("POST", "https://conduit.productionready.io/api/users/login").as(
+            "login");
+        cy.route("POST", "https://conduit.productionready.io/api/articles/").as(
+      "publish");
         // Signs in with credentials
         cy.contains("Sign in").click();
         cy.get(":nth-child(2) > .form-control").type("ngconfentcypress@testemail.com");
@@ -23,8 +39,10 @@ describe("workshop test", () => {
         cy.get(":nth-child(3) > .form-control").should("have.value",
       "ngConfEntCypress");
         cy.get(".btn").should("not.be", "disabled").click();
-            cy.get(":nth-child(4) > .nav-link").should("contain.text",
-      "ngConfEntCypress");
+       cy.get(":nth-child(4) > .nav-link").should("contain.text",
+            "ngConfEntCypress");
+       // -- Asserts the network request status was valid
+        cy.wait("@login").its("status").should("equal", 200);
         // Publishes New Article
         cy.contains("New Article").click();
         cy.contains("Publish Article");
@@ -35,13 +53,9 @@ describe("workshop test", () => {
         );
         cy.get(":nth-child(4) > .form-control").type("tutorial");
         cy.get(".btn").should("not.be", "disabled").click();
+        // Asserts network request status was valid
+        cy.wait("@publish").its("status").should("equal", 200);
         // -- Asserts DOM changed on click
         cy.contains("Edit Article");
-    });
-
-    it("asserts on the DOM after commands", () => {
-        // -- Visits the baseUrl
-        cy.visit("/");
-
     });
 });
