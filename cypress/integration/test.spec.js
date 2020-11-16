@@ -18,9 +18,16 @@ describe("workshop test", () => {
         cy.contains("Sign in").click();
         cy.get(":nth-child(2) > .form-control").type("ngconfentcypress@testemail.com");
         cy.get(":nth-child(3) > .form-control").type("ngConfEntCypress");
+        cy.get(":nth-child(2) > .form-control").should("have.value",
+      "ngconfentcypress@testemail.com");
+        cy.get(":nth-child(3) > .form-control").should("have.value",
+      "ngConfEntCypress");
         cy.get(".btn").should("not.be", "disabled").click();
+            cy.get(":nth-child(4) > .nav-link").should("contain.text",
+      "ngConfEntCypress");
         // Publishes New Article
         cy.contains("New Article").click();
+        cy.contains("Publish Article");
         cy.get(":nth-child(1) > .form-control").type("test: Article Title");
         cy.get(":nth-child(2) > .form-control").type("test: Article description");
         cy.get(":nth-child(3) > .form-control").type(
@@ -28,5 +35,13 @@ describe("workshop test", () => {
         );
         cy.get(":nth-child(4) > .form-control").type("tutorial");
         cy.get(".btn").should("not.be", "disabled").click();
+        // -- Asserts DOM changed on click
+        cy.contains("Edit Article");
+    });
+
+    it("asserts on the DOM after commands", () => {
+        // -- Visits the baseUrl
+        cy.visit("/");
+
     });
 });
