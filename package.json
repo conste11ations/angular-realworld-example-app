@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve"
+    "start": "ng serve",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
   },
   "private": true,
   "dependencies": {
