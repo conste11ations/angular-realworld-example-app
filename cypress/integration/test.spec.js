@@ -13,7 +13,7 @@ describe("workshop test", () => {
 
     it("uses commands to sign in and publish new article", () => {
         // Visits our application
-        cy.visit("/");
+        cy.visit("/"); 
         // Signs in with credentials
         cy.contains("Sign in").click();
         cy.get(":nth-child(2) > .form-control").type("ngconfentcypress@testemail.com");
